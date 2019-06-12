@@ -3,12 +3,18 @@ package com.saltandpepper.emdad.daggerwithkotlin
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import dagger.Component
+import dagger.Module
+import dagger.Provides
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-    @Inject
-    lateinit var info: Info
+
+    @Inject lateinit var test:Info
+
+    companion object{
+        var x ="Hello Banglades"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -17,15 +23,25 @@ class MainActivity : AppCompatActivity() {
         DaggerMainActivity_MagicBox
                 .create()
                 .poke(this)
-        textview.text = info.text
+        textview.text = test.text
     }
 
-    class Info @Inject constructor() {
-        val text = "Welcome Dagger 2"
+    class Info @Inject constructor(var text:String){
+
     }
 
-    @Component
-    interface MagicBox {
-        fun poke(app: MainActivity)
+    @Component(modules = [Bag::class])
+    interface MagicBox{
+        fun poke(test:MainActivity)
     }
+
+    @Module
+    class Bag{
+
+        @Provides
+        fun providesInfo():Info{
+            return Info(x);
+        }
+    }
+
 }
