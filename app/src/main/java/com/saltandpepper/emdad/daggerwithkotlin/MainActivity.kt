@@ -7,17 +7,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-    @Inject lateinit var  info: Info
+    @Inject
+    lateinit var info: Info
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        DaggerMainActivity_MagicBox.create().
-                poke(this)
+        DaggerMainActivity_MagicBox
+                .create()
+                .poke(this)
         textview.text = info.text
     }
 
-     class Info @Inject constructor() {
+    class Info @Inject constructor() {
         val text = "Welcome Dagger 2"
     }
 
