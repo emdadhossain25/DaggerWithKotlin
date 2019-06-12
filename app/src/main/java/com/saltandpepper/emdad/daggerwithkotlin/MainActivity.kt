@@ -12,9 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var test:Info
 
-    companion object{
-        var x ="Hello Banglades"
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -40,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         @Provides
         fun providesInfo():Info{
-            return Info(x);
+            return Info("Love Dagger2");
         }
     }
 
