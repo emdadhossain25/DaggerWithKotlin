@@ -7,12 +7,15 @@ import dagger.Module
 import dagger.Provides
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
+import javax.inject.Qualifier
+
+const val LOVE ="Love"
+const val HELLO ="Hello"
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject lateinit var test:Info
-
-
+    @Inject @field:Choose(LOVE) lateinit var infoLove:Info
+    @Inject @field:Choose(HELLO) lateinit var infoHello:Info
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -21,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         DaggerMainActivity_MagicBox
                 .create()
                 .poke(this)
-        textview.text = test.text
+        textview.text = "${infoLove.text} ${infoHello.text}"
     }
 
     class Info @Inject constructor(var text:String){
@@ -36,10 +39,20 @@ class MainActivity : AppCompatActivity() {
     @Module
     class Bag{
 
-        @Provides
-        fun providesInfo():Info{
+        @Provides @Choose(LOVE)
+        fun sayLoveDagger2():Info{
             return Info("Love Dagger2");
+        }
+
+        @Provides @Choose(HELLO)
+        fun sayHelloDagger2():Info{
+            return Info("Hello Dagger2");
         }
     }
 
+
+    @Qualifier
+    @MustBeDocumented
+    @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+    annotation class Choose(val value:String = "")
 }
