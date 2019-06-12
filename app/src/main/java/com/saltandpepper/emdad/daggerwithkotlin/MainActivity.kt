@@ -1,5 +1,6 @@
 package com.saltandpepper.emdad.daggerwithkotlin
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import dagger.Component
@@ -25,6 +26,9 @@ class MainActivity : AppCompatActivity() {
                 .create()
                 .poke(this)
         textview.text = "${infoLove.text} ${infoHello.text}"
+        var intent:Intent = Intent(this,ScopeActivity::class.java)
+        startActivity(intent)
+
     }
 
     class Info @Inject constructor(var text:String){
