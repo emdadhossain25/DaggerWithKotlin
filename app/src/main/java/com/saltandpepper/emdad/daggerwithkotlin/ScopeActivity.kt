@@ -24,14 +24,14 @@ class ScopeActivity : AppCompatActivity() {
         magicBox = mainBox.getMagicBox()
 
         button.setOnClickListener {
-            val storage = Storage()
             magicBox = mainBox.getMagicBox()
             useStorage()
-            textView.text = "Unique ${storage.uniqueMagic.count}" + " " +
-                    "\nNormal  ${storage.normalMagic.count}"
         }
 
 
+        btn_user.setOnClickListener {
+            useStorage()
+        }
 
 
     }
